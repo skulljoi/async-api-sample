@@ -1,3 +1,48 @@
+asyncapi: 2.6.0
+info:
+  title: Petstore
+  version: 1.0.0
+  description: The PetStore running in Kafka
+channels:
+  petstore.order.added:
+    publish:
+      message:
+        title: New order for pet
+        summary: A new order for a pet was added.
+        name: Order
+        contentType: application/json
+        payload:
+          "$ref": "#/components/schemas/Order"
+  petstore.order.deleted:
+    publish:
+      message:
+        name: OrderId
+        contentType: application/json
+        payload:
+          type: integer
+          format: int64
+  petstore.pet.added:
+    publish:
+      message:
+        name: Pet
+        contentType: application/json
+        payload:
+          "$ref": "#/components/schemas/Pet"
+  petstore.pet.changed:
+    publish:
+      message:
+        name: Pet
+        contentType: application/json
+        payload:
+          "$ref": "#/components/schemas/Pet"
+  petstore.pet.deleted:
+    publish:
+      message:
+        name: PetId
+        contentType: application/json
+        payload:
+          type: integer
+          format: int64
 components:
   schemas:
     Inventory:
