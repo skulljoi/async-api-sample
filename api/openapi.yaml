@@ -1,0 +1,81 @@
+asyncapi: 3.0.0
+info:
+  title: Petstore
+  version: 1.0.0
+  description: The PetStore running in Kafka
+channels:
+  petstore.order.added:
+    address: petstore.order.added
+    messages:
+      publish.message:
+        title: New order for pet
+        summary: A new order for a pet was added.
+        name: Order
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/Order'
+  petstore.order.deleted:
+    address: petstore.order.deleted
+    messages:
+      publish.message:
+        name: OrderId
+        contentType: application/json
+        payload:
+          type: integer
+          format: int64
+  petstore.pet.added:
+    address: petstore.pet.added
+    messages:
+      publish.message:
+        name: Pet
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/Pet'
+  petstore.pet.changed:
+    address: petstore.pet.changed
+    messages:
+      publish.message:
+        name: Pet
+        contentType: application/json
+        payload:
+          $ref: '#/components/schemas/Pet'
+  petstore.pet.deleted:
+    address: petstore.pet.deleted
+    messages:
+      publish.message:
+        name: PetId
+        contentType: application/json
+        payload:
+          type: integer
+          format: int64
+operations:
+  petstore.order.added.publish:
+    action: receive
+    channel:
+      $ref: './components.yaml#/channels/petstore.order.added'
+    messages:
+      - $ref: '#/channels/petstore.order.added/messages/publish.message'
+  petstore.order.deleted.publish:
+    action: receive
+    channel:
+      $ref: '#/channels/petstore.order.deleted'
+    messages:
+      - $ref: '#/channels/petstore.order.deleted/messages/publish.message'
+  petstore.pet.added.publish:
+    action: receive
+    channel:
+      $ref: '#/channels/petstore.pet.added'
+    messages:
+      - $ref: '#/channels/petstore.pet.added/messages/publish.message'
+  petstore.pet.changed.publish:
+    action: receive
+    channel:
+      $ref: '#/channels/petstore.pet.changed'
+    messages:
+      - $ref: '#/channels/petstore.pet.changed/messages/publish.message'
+  petstore.pet.deleted.publish:
+    action: receive
+    channel:
+      $ref: '#/channels/petstore.pet.deleted'
+    messages:
+      - $ref: '#/channels/petstore.pet.deleted/messages/publish.message'
